@@ -128,8 +128,20 @@ int main() {
                 }
             }; break;
 
+            // Statistiques
             case 5: {
-
+                if(!count) printf("Il n'y a aucune tâche actuellement.\n");
+                else {
+                    printf("************** Statistiques **************\n");
+                    printf("Le nombre total des tâches est: %d\n", count);
+                    int countTCompletes = 0, countTInCompletes = 0;
+                    for(int i=0; i<count; i++) {
+                        if(strcmp(taches[i].statut, "terminée") == 0) countTCompletes++;
+                        else countTInCompletes++;
+                    }
+                    printf("Le nombre total des tâches complètes est: %d\n", countTCompletes);
+                    printf("Le nombre total des tâches incomplètes est: %d\n", countTInCompletes);
+                }
             }; break;
 
         }
