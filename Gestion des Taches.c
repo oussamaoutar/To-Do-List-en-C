@@ -31,7 +31,7 @@ int main() {
         printf("4. Rechercher une tâche.\n");
         printf("5. Afficher des Statistiques.\n");
         printf("6. Afficher Tous les Tâches.\n");
-        printf("*Tapper autre chiffre pour quitter*\n");
+        printf("*Tapper autre chiffre pour quitter*\n===> ");
         scanf("%d", &choix);
         switch(choix) {
             // Ajout d'une tâche
@@ -136,6 +136,7 @@ int main() {
                         x++;
                     }
                     if(x >= 1) printf("Tâche Modifiée avec succès!\n");
+                    else printf("Modification annulée.\n");
                 }
             }; break;
 
@@ -164,7 +165,7 @@ int main() {
                     }
                     char confirmation;
                     printf("Voulez-vous vraiement supprimer cette tâche? (O/N) ===> ");
-                    scanf(" %c", confirmation);
+                    scanf(" %c", &confirmation);
                     if(confirmation == 'O') {
                         for(int i=choix; i<count-1; i++)
                             taches[i] = taches[i+1];
