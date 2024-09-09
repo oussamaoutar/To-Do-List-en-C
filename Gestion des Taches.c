@@ -68,11 +68,11 @@ int main() {
                     if(choix>count || choix<0) printf("Choix invalide!");
                     else {
                         printf("Nouveau Description ===> ");
-                        scanf(" %[^\n]s", T[choix].description);
+                        scanf(" %[^\n]s", taches[choix].description);
                         printf("Nouveau Deadline ===> ");
-                        scanf(" %[^\n]s", T[choix].deadline);
+                        scanf(" %[^\n]s", taches[choix].deadline);
                         printf("Nouveau Statut ===> ");
-                        scanf(" %[^\n]s", T[choix].statut);
+                        scanf(" %[^\n]s", taches[choix].statut);
                         printf("Tâche Modifiée avec succès!\n");
                     }
                 }
