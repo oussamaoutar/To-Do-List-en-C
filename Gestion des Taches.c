@@ -92,21 +92,50 @@ int main() {
                     for(int i=0; i<count; i++) {
                         printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }
+                    printf("===> ");
                     scanf("%d", &choix);
-                    if(choix>count || choix<0) printf("Choix invalide!\n");
-                    else {
-                        printf("Nouveau Description ===> ");
+                    bool IDExiste = false;
+                    for(int i=0; i<count; i++) {
+                        if(taches[i].id == choix) { IDExiste = true; break; }
+                    }
+                    while(!IDExiste) {
+                        printf("Cet ID n'existe pas, veuillez taper un ID valide ===> ");
+                        scanf("%d", &choix);
+                        for(int i=0; i<count; i++) {
+                            if(taches[i].id == choix) { IDExiste = true; break; }
+                            else IDExiste = false;
+                        }
+                    }
+                    char c;
+                    printf("Voulez-vous modifier la description? (O/N) ===> ");
+                    scanf(" %c", &c);
+                    int x = 0;
+                    if(c=='O') {
+                        printf("Nouvelle Description ===> ");
                         scanf(" %[^\n]s", taches[choix].description);
-                        printf("Nouveau Deadline:\nDD ===> ");
-                        scanf("%d", taches[choix].deadline.DD);
-                        printf("MM ===> ");
-                        scanf("%d", taches[choix].deadline.MM);
+                        x++;
+                    }
+                    printf("Voulez-vous modifier le deadline? (O/N) ===> ");
+                    scanf(" %c", &c);
+                    if(c=='O') {
+                        printf("Nouveau Deadline:\n");
                         printf("YYYY ===> ");
                         scanf("%d", taches[choix].deadline.YYYY);
+                        printf("MM ===> ");
+                        scanf("%d", taches[choix].deadline.MM);
+                        printf("DD ===> ");
+                        scanf("%d", taches[choix].deadline.DD);
+                        x++;
+                    }
+                    printf("Voulez-vous modifier le statut? (O/N) ===> ");
+                    scanf(" %c", &c);
+                    if(c=='O') {
+                        // printf("Nouveau Statut(1. à réaliser || 2. en cours de réalisation || Autre. finalisée):\n");
                         printf("Nouveau Statut ===> ");
                         scanf(" %[^\n]s", taches[choix].statut);
-                        printf("Tâche Modifiée avec succès!\n");
+                        x++;
                     }
+                    if(x >= 1) printf("Tâche Modifiée avec succès!\n");
                 }
             }; break;
 
@@ -119,14 +148,29 @@ int main() {
                     for(int i=0; i<count; i++) {
                         printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }
+                    printf("===> ");
                     scanf("%d", &choix);
-                    if(choix>count || choix<0) printf("Choix invalide!\n");
-                    else {
+                    bool IDExiste = false;
+                    for(int i=0; i<count; i++) {
+                        if(taches[i].id == choix) { IDExiste = true; break; }
+                    }
+                    while(!IDExiste) {
+                        printf("Cet ID n'existe pas, veuillez taper un ID valide ===> ");
+                        scanf("%d", &choix);
+                        for(int i=0; i<count; i++) {
+                            if(taches[i].id == choix) { IDExiste = true; break; }
+                            else IDExiste = false;
+                        }
+                    }
+                    char confirmation;
+                    printf("Voulez-vous vraiement supprimer cette tâche? (O/N) ===> ");
+                    scanf(" %c", confirmation);
+                    if(confirmation == 'O') {
                         for(int i=choix; i<count-1; i++)
                             taches[i] = taches[i+1];
                         count--;
                         printf("Tâche Supprimée avec succès!\n");
-                    }
+                    } else printf("Suppression annulée.\n");
                 }
             }; break;
 
