@@ -297,7 +297,6 @@ int main() {
                 }
             }; break;
 
-            default: exit(0);
         }
     } while(choix >= 1 && choix <= 6);
 
