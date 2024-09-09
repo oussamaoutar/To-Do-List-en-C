@@ -38,20 +38,22 @@ int main() {
             // Ajout d'une tâche
             case 1: {
                 Tache T;
+                Date D;
                 printf("ID ===> ");
-                scanf("%d", &taches[count].id);
+                scanf("%d", &T.id);
                 printf("Titre ===> ");
-                scanf(" %[^\n]s", &taches[count].titre);
+                scanf(" %[^\n]s", T.titre);
                 printf("Description ===> ");
-                scanf(" %[^\n]s", &taches[count].description);
+                scanf(" %[^\n]s", T.description);
                 printf("Deadline:\nDD ===> ");
-                scanf("%d", &taches[count].deadline.DD);
+                scanf("%d", &D.DD);
                 printf("MM ===> ");
-                scanf("%d", &taches[count].deadline.MM);
+                scanf("%d", &D.MM);
                 printf("YYYY ===> ");
-                scanf("%d", &taches[count].deadline.YYYY);
+                scanf("%d", &D.YYYY);
                 printf("Statut ===> ");
-                scanf(" %[^\n]s", &taches[count].statut);
+                scanf(" %[^\n]s", T.statut);
+                T.deadline = D;
                 taches[count] = T;
                 count++;
                 printf("Tâche Ajoutée avec Succès!\n");
@@ -64,15 +66,19 @@ int main() {
                     int choix;
                     printf("Veuillez choisir l'ID du tâche à modifier:\nID | Titre | Description | Deadline | Statut\n");
                     for(int i=0; i<count; i++) {
-                        printf("%d | %s | %s | %s | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
+                        printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }
                     scanf("%d", &choix);
-                    if(choix>count || choix<0) printf("Choix invalide!");
+                    if(choix>count || choix<0) printf("Choix invalide!\n");
                     else {
                         printf("Nouveau Description ===> ");
                         scanf(" %[^\n]s", taches[choix].description);
-                        printf("Nouveau Deadline ===> ");
-                        scanf(" %[^\n]s", taches[choix].deadline);
+                        printf("Nouveau Deadline:\nDD ===> ");
+                        scanf("%d", taches[choix].deadline.DD);
+                        printf("MM ===> ");
+                        scanf("%d", taches[choix].deadline.MM);
+                        printf("YYYY ===> ");
+                        scanf("%d", taches[choix].deadline.YYYY);
                         printf("Nouveau Statut ===> ");
                         scanf(" %[^\n]s", taches[choix].statut);
                         printf("Tâche Modifiée avec succès!\n");
@@ -87,10 +93,10 @@ int main() {
                     int choix;
                     printf("Veuillez choisir l'ID du tâche à supprimer:\nID | Titre | Description | Deadline | Statut\n");
                     for(int i=0; i<count; i++) {
-                        printf("%d | %s | %s | %s | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
+                        printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }
                     scanf("%d", &choix);
-                    if(choix>count || choix<0) printf("Choix invalide!");
+                    if(choix>count || choix<0) printf("Choix invalide!\n");
                     else {
                         for(int i=choix; i<count-1; i++)
                             taches[i] = taches[i+1];
@@ -114,7 +120,7 @@ int main() {
                         if(id > count || id<0) printf("ID invalide!\n");
                         else {
                             printf("ID | Titre | Description | Deadline | Statut\n");
-                            printf("%d | %s | %s | %s | %s\n", taches[id].id, taches[id].titre, taches[id].description, taches[id].deadline, taches[id].statut);
+                            printf("%d | %s | %s | %d-%d-%d | %s\n", taches[id].id, taches[id].titre, taches[id].description, taches[id].deadline.DD, taches[id].deadline.MM, taches[id].deadline.YYYY, taches[id].statut);
                         }
                     } else if(choix == 2) {
                         char titre[100];
