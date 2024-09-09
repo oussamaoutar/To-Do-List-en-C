@@ -270,7 +270,8 @@ int main() {
                                 }
                             }
                         }
-                        printf("Les taches ont été triées par ordre alphabétique.\n");
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }; break;
 
                     case 2: {
@@ -285,7 +286,8 @@ int main() {
                                 }
                             }
                         }
-                        printf("Les taches ont été triées par ordre croissant du deadline.\n");
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }; break;
 
                     default: {
