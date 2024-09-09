@@ -112,7 +112,7 @@ int main() {
                     int x = 0;
                     if(c=='O') {
                         printf("Nouvelle Description ===> ");
-                        scanf(" %[^\n]s", taches[choix].description);
+                        scanf(" %[^\n]s", taches[choix-1].description);
                         x++;
                     }
                     printf("Voulez-vous modifier le deadline? (O/N) ===> ");
@@ -120,11 +120,11 @@ int main() {
                     if(c=='O') {
                         printf("Nouveau Deadline:\n");
                         printf("YYYY ===> ");
-                        scanf("%d", taches[choix].deadline.YYYY);
+                        scanf("%d", taches[choix-1].deadline.YYYY);
                         printf("MM ===> ");
-                        scanf("%d", taches[choix].deadline.MM);
+                        scanf("%d", taches[choix-1].deadline.MM);
                         printf("DD ===> ");
-                        scanf("%d", taches[choix].deadline.DD);
+                        scanf("%d", taches[choix-1].deadline.DD);
                         x++;
                     }
                     printf("Voulez-vous modifier le statut? (O/N) ===> ");
@@ -132,7 +132,7 @@ int main() {
                     if(c=='O') {
                         // printf("Nouveau Statut(1. à réaliser || 2. en cours de réalisation || Autre. finalisée):\n");
                         printf("Nouveau Statut ===> ");
-                        scanf(" %[^\n]s", taches[choix].statut);
+                        scanf(" %[^\n]s", taches[choix-1].statut);
                         x++;
                     }
                     if(x >= 1) printf("Tâche Modifiée avec succès!\n");
@@ -167,7 +167,7 @@ int main() {
                     printf("Voulez-vous vraiement supprimer cette tâche? (O/N) ===> ");
                     scanf(" %c", &confirmation);
                     if(confirmation == 'O') {
-                        for(int i=choix; i<count-1; i++)
+                        for(int i=choix-1; i<count-1; i++)
                             taches[i] = taches[i+1];
                         count--;
                         printf("Tâche Supprimée avec succès!\n");
@@ -180,35 +180,56 @@ int main() {
                 if(!count) printf("Il n'y a aucune tâche actuellement.\n");
                 else {
                     int choix;
-                    printf("Vous voulez rechercher par ID ou par Titre ?\n1. Par ID\n2.Par Titre\n==>");
+                    printf("Vous voulez rechercher par ID ou par Titre ?\n1. Par ID\nAutre Chiffre. Par Titre\n==>");
                     scanf("%d", &choix);
                     if(choix == 1) {
-                        int id;
-                        printf("Saisir l'ID ==> ");
+                        int id, i;
+                        bool IDExiste = false;
+                        printf("ID ===> ");
                         scanf("%d", &id);
-                        if(id > count || id<0) printf("ID invalide!\n");
-                        else {
-                            printf("ID | Titre | Description | Deadline | Statut\n");
-                            printf("%d | %s | %s | %d-%d-%d | %s\n", taches[id].id, taches[id].titre, taches[id].description, taches[id].deadline.DD, taches[id].deadline.MM, taches[id].deadline.YYYY, taches[id].statut);
-                        }
-                    } else if(choix == 2) {
-                        char titre[100];
-                        printf("Saisir le Titre ==> ");
-                        scanf(" %[^\n]s", titre);
-                        bool exists = false;
-                        int indiceTacheTrouvee;
-                        for(int i=0; i<count; i++) {
-                            if(strcmp(taches[i].titre, titre) == 0) {
-                                exists = true;
-                                indiceTacheTrouvee = i;
-                                break;
+                        for(i=0; i<count; i++) {
+                            if (taches[i].id == id) { 
+                                IDExiste = true; 
+                                break; 
                             }
                         }
-                        if(!exists) printf("Ce titre n'existe pas!\n");
-                        else {
-                            printf("ID | Titre | Description | Deadline | Statut\n");
-                            printf("%d | %s | %s | %s | %s\n", taches[indiceTacheTrouvee].id, taches[indiceTacheTrouvee].titre, taches[indiceTacheTrouvee].description, taches[indiceTacheTrouvee].deadline, taches[indiceTacheTrouvee].statut);
+                        while(!IDExiste) {
+                            printf("Cet ID n'existe pas, veuillez taper un ID valide ===> ");
+                            scanf("%d", &id);
+                            for(i=0; i<count; i++) {
+                                if(taches[i].id == id) { 
+                                    IDExiste = true; 
+                                    break; 
+                                }
+                            }
                         }
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
+
+                    } else {
+                        char titre[100];
+                        bool titreExiste = false;
+                        int i;
+                        printf("Saisir le titre ==> ");
+                        scanf(" %[^\n]s", titre);
+                        for(i=0; i<count; i++) {
+                            if (strcmp(taches[i].titre, titre) == 0) { 
+                                titreExiste = true; 
+                                break; 
+                            }
+                        }
+                        while(!titreExiste) {
+                            printf("Ce titre n'existe pas, veuillez saisir un titre existant ===> ");
+                            scanf(" %[^\n]s", titre);
+                            for(i=0; i<count; i++) {
+                                if(strcmp(taches[i].titre, titre) == 0) { 
+                                    titreExiste = true; 
+                                    break; 
+                                }
+                            }
+                        }
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
                     }
                 }
             }; break;
@@ -260,6 +281,7 @@ int main() {
                 }
             }; break;
 
+            default: exit(0);
         }
     } while(choix >= 1 && choix <= 6);
 
