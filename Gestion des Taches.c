@@ -4,10 +4,16 @@
 #include <string.h>
 
 typedef struct {
+    int DD;
+    int MM;
+    int YYYY;
+} Date;
+
+typedef struct {
     int id;
     char titre[100];
     char description[1000];
-    char deadline[10];
+    Date deadline;
     char statut[25];
 } Tache;
 
@@ -38,8 +44,12 @@ int main() {
                 scanf(" %[^\n]s", &taches[count].titre);
                 printf("Description ===> ");
                 scanf(" %[^\n]s", &taches[count].description);
-                printf("Deadline (DD/MM/YYYY) ===> ");
-                scanf(" %[^\n]s", &taches[count].deadline);
+                printf("Deadline:\nDD ===> ");
+                scanf("%d", &taches[count].deadline.DD);
+                printf("MM ===> ");
+                scanf("%d", &taches[count].deadline.MM);
+                printf("YYYY ===> ");
+                scanf("%d", &taches[count].deadline.YYYY);
                 printf("Statut ===> ");
                 scanf(" %[^\n]s", &taches[count].statut);
                 taches[count] = T;
@@ -141,6 +151,37 @@ int main() {
                     }
                     printf("Le nombre total des tâches complètes est: %d\n", countTCompletes);
                     printf("Le nombre total des tâches incomplètes est: %d\n", countTInCompletes);
+                }
+            }; break;
+
+            // Affichage
+            case 6: {
+                int choix;
+                printf("Choisissez une option:\n");
+                printf("1. Trier les tâches par ordre alphabétique\n");
+                printf("2. Trier les tâches par deadline\n");
+                printf("Autre. Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
+                switch(choix) {
+                    case 1: {
+                        // Application du tri à bulles sur le tableau des tâches     
+                        for(int i=0; i<count-1; i++) {
+                            for(int j=0; j<count-i-1; j++) {
+                                if(strcmp(taches[j].titre, taches[j+1].titre) > 0) {
+                                    Tache temp = taches[j];
+                                    taches[j] = taches[j+1];
+                                    taches[j+1] = temp;
+                                }
+                            }
+                        }
+                    }; break;
+
+                    case 2: {
+
+                    }; break;
+
+                    default: {
+
+                    }
                 }
             }; break;
 
