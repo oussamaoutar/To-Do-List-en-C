@@ -24,34 +24,24 @@ int main() {
         printf("3. Supprimer une tâche.\n");
         printf("4. Rechercher une tâche.\n");
         printf("5. Afficher des Statistiques.\n");
+        printf("6. Afficher Tous les Tâches.\n");
         printf("*Tapper autre chiffre pour quitter*\n");
         scanf("%d", &choix);
         switch(choix) {
 
             // Ajout d'une tâche
             case 1: {
-                int id;
-                char titre[100];
-                char description[1000];
-                char deadline[10];
-                char statut[25];
+                Tache T;
                 printf("ID ===> ");
-                scanf(" %[^\n]s", &id);
+                scanf("%d", &taches[count].id);
                 printf("Titre ===> ");
-                scanf(" %[^\n]s", titre);
+                scanf(" %[^\n]s", &taches[count].titre);
                 printf("Description ===> ");
-                scanf(" %[^\n]s", description);
+                scanf(" %[^\n]s", &taches[count].description);
                 printf("Deadline (DD/MM/YYYY) ===> ");
-                scanf(" %[^\n]s", deadline);
+                scanf(" %[^\n]s", &taches[count].deadline);
                 printf("Statut ===> ");
-                scanf(" %[^\n]s", statut);
-                Tache T = {
-                    id,
-                    titre,
-                    description,
-                    deadline,
-                    statut
-                };
+                scanf(" %[^\n]s", &taches[count].statut);
                 taches[count] = T;
                 count++;
                 printf("Tâche Ajoutée avec Succès!\n");
@@ -138,8 +128,12 @@ int main() {
                 }
             }; break;
 
+            case 5: {
+
+            }; break;
+
         }
-    } while(choix >= 1 && choix <= 5);
+    } while(choix >= 1 && choix <= 6);
 
     return 0;
 }
