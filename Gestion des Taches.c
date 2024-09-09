@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     int id;
@@ -17,6 +18,7 @@ void menuPrincipal() {
     printf("3. Supprimer une tâche.\n");
     printf("4. Rechercher une tâche.\n");
     printf("5. Afficher des Statistiques.\n");
+    printf("*Tapper autre chiffre pour quitter*\n");
 
     ligneEtoiles();
 }
@@ -26,7 +28,12 @@ void ligneEtoiles() {
 }
 
 int main() {
-        
+    int choix;
+
+    do {
+        menuPrincipal();
+        scanf("%d", &choix);
+    } while(choix >= 1 && choix <= 5);
 
     return 0;
 }
