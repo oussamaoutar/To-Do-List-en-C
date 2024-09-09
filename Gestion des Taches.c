@@ -79,7 +79,22 @@ int main() {
             }; break;
 
             case 3: {
-
+                if(!count) printf("Il n'y a aucune tâche à modifier.\n");
+                else {
+                    int choix;
+                    printf("Veuillez choisir l'ID du tâche à supprimer:\nID | Titre | Description | Deadline | Statut\n");
+                    for(int i=0; i<count; i++) {
+                        printf("%d | %s | %s | %s | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline, taches[i].statut);
+                    }
+                    scanf("%d", &choix);
+                    if(choix>count || choix<0) printf("Choix invalide!");
+                    else {
+                        for(int i=choix; i<count-1; i++)
+                            taches[i] = taches[i+1];
+                        count--;
+                        printf("Tâche Supprimée avec succès!\n");
+                    }
+                }
             }; break;
 
         }
