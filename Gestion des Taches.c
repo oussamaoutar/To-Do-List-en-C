@@ -34,23 +34,47 @@ int main() {
         printf("*Tapper autre chiffre pour quitter*\n");
         scanf("%d", &choix);
         switch(choix) {
-
             // Ajout d'une tâche
             case 1: {
                 Tache T;
                 Date D;
+                bool IDExiste = false, titreExiste = false;
                 printf("ID ===> ");
                 scanf("%d", &T.id);
+                for(int i=0; i<count; i++) {
+                    if(taches[i].id == T.id) { IDExiste = true; break; }
+                }
+                while(IDExiste) {
+                    printf("Cet ID existe déjà, veuillez taper un autre ID ===> ");
+                    scanf("%d", &T.id);
+                    for(int i=0; i<count; i++) {
+                        if(taches[i].id == T.id) { IDExiste = true; break; }
+                        else IDExiste = false;
+                    }
+                }
                 printf("Titre ===> ");
                 scanf(" %[^\n]s", T.titre);
+                for(int i=0; i<count; i++) {
+                    if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
+                }
+                while(titreExiste) {
+                    printf("Ce titre existe déjà, veuillez saisir un autre titre ===> ");
+                    scanf(" %[^\n]s", T.titre);
+                    for(int i=0; i<count; i++) {
+                        if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
+                        else titreExiste = false;
+                    }
+                }
                 printf("Description ===> ");
                 scanf(" %[^\n]s", T.description);
-                printf("Deadline:\nDD ===> ");
-                scanf("%d", &D.DD);
-                printf("MM ===> ");
-                scanf("%d", &D.MM);
+                printf("Deadline (YYYY-MM-DD):\n");
+                // la validation de la date coming soon...
                 printf("YYYY ===> ");
                 scanf("%d", &D.YYYY);
+                printf("MM ===> ");
+                scanf("%d", &D.MM);
+                printf("DD ===> ");
+                scanf("%d", &D.DD);
                 printf("Statut ===> ");
                 scanf(" %[^\n]s", T.statut);
                 T.deadline = D;
