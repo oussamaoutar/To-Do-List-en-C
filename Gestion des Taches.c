@@ -256,28 +256,42 @@ int main() {
                 printf("Choisissez une option:\n");
                 printf("1. Trier les tâches par ordre alphabétique\n");
                 printf("2. Trier les tâches par deadline\n");
-                printf("Autre. Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
+                printf("Autre. Afficher les tâches dont le deadline est dans 3 jours ou moins\n==>");
+                scanf("%d", &choix);
                 switch(choix) {
                     case 1: {
-                        // Application du tri à bulles sur le tableau des tâches     
+                        // Application du tri à bulles sur le tableau des tâches par titre (ordre alphabétique)
                         for(int i=0; i<count-1; i++) {
                             for(int j=0; j<count-i-1; j++) {
-                                if(strcmp(taches[j].titre, taches[j+1].titre) > 0) {
+                                if(strcmp(taches[j].titre, taches[j + 1].titre) > 0) {
                                     Tache temp = taches[j];
                                     taches[j] = taches[j+1];
                                     taches[j+1] = temp;
                                 }
                             }
                         }
+                        printf("Les taches ont été triées par ordre alphabétique.\n");
                     }; break;
 
                     case 2: {
-
+                        // Tri par deadline - ordre croissaant (tri à bulles)
+                        for(int i=0; i<count-1; i++) {
+                            for(int j=0; j<count-i-1; j++) {
+                                // on compare les deadlines, 1èrement par l'annéee, puis le mois, puis le jour
+                                if((taches[j].deadline.YYYY > taches[j+1].deadline.YYYY) || (taches[j].deadline.YYYY == taches[j+1].deadline.YYYY && taches[j].deadline.MM > taches[j+1].deadline.MM) || (taches[j].deadline.YYYY == taches[j+1].deadline.YYYY && taches[j].deadline.MM == taches[j+1].deadline.MM && taches[j].deadline.DD > taches[j+1].deadline.DD)) {
+                                    Tache temp = taches[j];
+                                    taches[j] = taches[j+1];
+                                    taches[j+1] = temp;
+                                }
+                            }
+                        }
+                        printf("Les taches ont été triées par ordre croissant du deadline.\n");
                     }; break;
 
                     default: {
-
-                    }
+                        // coming soon...
+                        printf("Coming soon...\n");
+                    }; break;
                 }
             }; break;
 
