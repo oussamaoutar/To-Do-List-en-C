@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 #include <string.h>
 
 typedef struct {
@@ -19,6 +20,26 @@ typedef struct {
 
 Tache taches[1000];
 int count = 0;
+
+// Fonction pour calculer le nombre de jours entre deux dates
+int daysBetween(Date d1, Date d2) {
+    struct tm a = {0};
+    struct tm b = {0};
+    time_t x, y;
+
+    a.tm_year = d1.YYYY - 1900;
+    a.tm_mon = d1.MM - 1;
+    a.tm_mday = d1.DD;
+    
+    b.tm_year = d2.YYYY - 1900;
+    b.tm_mon = d2.MM - 1;
+    b.tm_mday = d2.DD;
+    
+    x = mktime(&a);
+    y = mktime(&b);
+    
+    return (int)difftime(y, x) / (60 * 60 * 24);
+}
 
 int main() {
     int choix;
@@ -307,6 +328,15 @@ int main() {
                     }
                     printf("Le nombre total des tâches complètes est: %d\n", countTCompletes);
                     printf("Le nombre total des tâches incomplètes est: %d\n", countTInCompletes);
+                    printf("##################### Jours restants jusqu'au délai: #####################\n");
+                    time_t t = time(NULL);
+                    struct tm *tm_info = localtime(&t);
+                    Date today = {tm_info->tm_mday, tm_info->tm_mon + 1, tm_info->tm_year + 1900};
+                    for (int i = 0; i < count; i++) {
+                        int joursRestants = daysBetween(today, taches[i].deadline);
+                        printf("Tâche ID %d : %s\n", taches[i].id, taches[i].titre);
+                        printf("Jours restants jusqu'au délai: %d\n", joursRestants);
+                    }
                 }
             }; break;
 
@@ -319,7 +349,8 @@ int main() {
                 printf("2. Trier les tâches par deadline croissant\n");
                 printf("3. Trier les tâches par ordre alphabétique décroissant\n");
                 printf("4. Trier les tâches par deadline décroissant\n");
-                printf("Autre. Afficher les tâches dont le deadline est dans 3 jours ou moins\n==>");
+                printf("5. Affichage simple\n");
+                printf("Autre. Afficher les tâches dont le deadline est dans 3 jours ou moins\n===> ");
                 scanf("%d", &choix);
                 Tache tachesCopy[1000];
                 for(int i=0; i<count; i++) tachesCopy[i] = taches[i];
@@ -386,7 +417,6 @@ int main() {
                         for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", tachesCopy[i].id, tachesCopy[i].titre, tachesCopy[i].description, tachesCopy[i].deadline.DD, tachesCopy[i].deadline.MM, tachesCopy[i].deadline.YYYY, tachesCopy[i].statut);
                     }; break;
 
-                    
                     case 5: {
                         // Affichage simple
                         printf("ID | Titre | Description | Deadline | Statut\n");
@@ -397,8 +427,14 @@ int main() {
                     
 
                     default: {
-                        // coming soon...
-                        printf("Coming soon...\n");
+                        time_t t = time(NULL);
+                        struct tm *tm_info = localtime(&t);
+                        Date today = {tm_info->tm_mday, tm_info->tm_mon + 1, tm_info->tm_year + 1900};
+                        printf("Les tâches dont le deadline est dans 3 jours ou moins\n");
+                        for (int i = 0; i < count; i++) {
+                            if(daysBetween(today, taches[i].deadline) <= 3)
+                            printf("Tâche ID %d: %s\n", taches[i].id, taches[i].titre);
+                        }
                     }; break;
                 }
             }; break;
