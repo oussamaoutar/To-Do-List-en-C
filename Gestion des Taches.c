@@ -38,49 +38,109 @@ int main() {
             case 1: {
                 Tache T;
                 Date D;
-                bool IDExiste = false, titreExiste = false;
-                printf("ID ===> ");
-                scanf("%d", &T.id);
-                for(int i=0; i<count; i++) {
-                    if(taches[i].id == T.id) { IDExiste = true; break; }
-                }
-                while(IDExiste) {
-                    printf("Cet ID existe déjà, veuillez taper un autre ID ===> ");
+                int a;
+                printf("Voulez-vous ajouter:\n1. Juste une Tâche\nAutre. Plusieurs Nouvelles Tâches\n");
+                scanf("%d", &a);
+                if(a == 1) {
+                    bool IDExiste = false, titreExiste = false;
+                    printf("ID ===> ");
                     scanf("%d", &T.id);
                     for(int i=0; i<count; i++) {
                         if(taches[i].id == T.id) { IDExiste = true; break; }
-                        else IDExiste = false;
                     }
-                }
-                printf("Titre ===> ");
-                scanf(" %[^\n]s", T.titre);
-                for(int i=0; i<count; i++) {
-                    if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
-                }
-                while(titreExiste) {
-                    printf("Ce titre existe déjà, veuillez saisir un autre titre ===> ");
+                    while(IDExiste) {
+                        printf("Cet ID existe déjà, veuillez taper un autre ID ===> ");
+                        scanf("%d", &T.id);
+                        for(int i=0; i<count; i++) {
+                            if(taches[i].id == T.id) { IDExiste = true; break; }
+                            else IDExiste = false;
+                        }
+                    }
+                    printf("Titre ===> ");
                     scanf(" %[^\n]s", T.titre);
                     for(int i=0; i<count; i++) {
                         if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
-                        else titreExiste = false;
+                    }
+                    while(titreExiste) {
+                        printf("Ce titre existe déjà, veuillez saisir un autre titre ===> ");
+                        scanf(" %[^\n]s", T.titre);
+                        for(int i=0; i<count; i++) {
+                            if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
+                            else titreExiste = false;
+                        }
+                    }
+                    printf("Description ===> ");
+                    scanf(" %[^\n]s", T.description);
+                    printf("Deadline (YYYY-MM-DD):\n");
+                    // la validation de la date coming soon...
+                    printf("YYYY ===> ");
+                    scanf("%d", &D.YYYY);
+                    printf("MM ===> ");
+                    scanf("%d", &D.MM);
+                    printf("DD ===> ");
+                    scanf("%d", &D.DD);
+                    printf("Statut ===> ");
+                    scanf(" %[^\n]s", T.statut);
+                    T.deadline = D;
+                    taches[count] = T;
+                    count++;
+                    printf("Tâche Ajoutée avec Succès!\n");
+                } else {
+                    int nb;
+                    printf("Combien de tâche voulez-vous ajouter ? ===> ");
+                    scanf("%d", &nb);
+                    while(nb <= 0) {
+                        printf("Nombre invalide. Combien de tâche voulez-vous ajouter ? ===> ");
+                        scanf("%d", &nb);
+                    }
+                    for(int i = 1; i<=nb; i++) {
+                        Tache T;
+                        Date D;
+                        bool IDExiste = false, titreExiste = false;
+                        printf("ID ===> ");
+                        scanf("%d", &T.id);
+                        for(int i=0; i<count; i++) {
+                            if(taches[i].id == T.id) { IDExiste = true; break; }
+                        }
+                        while(IDExiste) {
+                            printf("Cet ID existe déjà, veuillez taper un autre ID ===> ");
+                            scanf("%d", &T.id);
+                            for(int i=0; i<count; i++) {
+                                if(taches[i].id == T.id) { IDExiste = true; break; }
+                                else IDExiste = false;
+                            }
+                        }
+                        printf("Titre ===> ");
+                        scanf(" %[^\n]s", T.titre);
+                        for(int i=0; i<count; i++) {
+                            if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
+                        }
+                        while(titreExiste) {
+                            printf("Ce titre existe déjà, veuillez saisir un autre titre ===> ");
+                            scanf(" %[^\n]s", T.titre);
+                            for(int i=0; i<count; i++) {
+                                if(strcmp(taches[i].titre, T.titre) == 0) { titreExiste = true; break; }
+                                else titreExiste = false;
+                            }
+                        }
+                        printf("Description ===> ");
+                        scanf(" %[^\n]s", T.description);
+                        printf("Deadline (YYYY-MM-DD):\n");
+                        // la validation de la date coming soon...
+                        printf("YYYY ===> ");
+                        scanf("%d", &D.YYYY);
+                        printf("MM ===> ");
+                        scanf("%d", &D.MM);
+                        printf("DD ===> ");
+                        scanf("%d", &D.DD);
+                        printf("Statut ===> ");
+                        scanf(" %[^\n]s", T.statut);
+                        T.deadline = D;
+                        taches[count] = T;
+                        count++;
+                        printf("Tâche Ajoutée avec Succès!\n");
                     }
                 }
-                printf("Description ===> ");
-                scanf(" %[^\n]s", T.description);
-                printf("Deadline (YYYY-MM-DD):\n");
-                // la validation de la date coming soon...
-                printf("YYYY ===> ");
-                scanf("%d", &D.YYYY);
-                printf("MM ===> ");
-                scanf("%d", &D.MM);
-                printf("DD ===> ");
-                scanf("%d", &D.DD);
-                printf("Statut ===> ");
-                scanf(" %[^\n]s", T.statut);
-                T.deadline = D;
-                taches[count] = T;
-                count++;
-                printf("Tâche Ajoutée avec Succès!\n");
             } break;
 
             // Modification d'une tâche
@@ -253,42 +313,88 @@ int main() {
             // Affichage
             case 6: {
                 int choix;
+
                 printf("Choisissez une option:\n");
-                printf("1. Trier les tâches par ordre alphabétique\n");
-                printf("2. Trier les tâches par deadline\n");
+                printf("1. Trier les tâches par ordre alphabétique croissant\n");
+                printf("2. Trier les tâches par deadline croissant\n");
+                printf("3. Trier les tâches par ordre alphabétique décroissant\n");
+                printf("4. Trier les tâches par deadline décroissant\n");
                 printf("Autre. Afficher les tâches dont le deadline est dans 3 jours ou moins\n==>");
                 scanf("%d", &choix);
+                Tache tachesCopy[1000];
+                for(int i=0; i<count; i++) tachesCopy[i] = taches[i];
                 switch(choix) {
                     case 1: {
-                        // Application du tri à bulles sur le tableau des tâches par titre (ordre alphabétique)
+                        // Application du tri à bulles sur le tableau des tâches par titre (ordre alphabétique croissant)
                         for(int i=0; i<count-1; i++) {
                             for(int j=0; j<count-i-1; j++) {
-                                if(strcmp(taches[j].titre, taches[j + 1].titre) > 0) {
-                                    Tache temp = taches[j];
-                                    taches[j] = taches[j+1];
-                                    taches[j+1] = temp;
+                                if(strcmp(tachesCopy[j].titre, tachesCopy[j + 1].titre) > 0) {
+                                    Tache temp = tachesCopy[j];
+                                    tachesCopy[j] = tachesCopy[j+1];
+                                    tachesCopy[j+1] = temp;
                                 }
                             }
                         }
                         printf("ID | Titre | Description | Deadline | Statut\n");
-                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
+                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", tachesCopy[i].id, tachesCopy[i].titre, tachesCopy[i].description, tachesCopy[i].deadline.DD, tachesCopy[i].deadline.MM, tachesCopy[i].deadline.YYYY, tachesCopy[i].statut);
                     }; break;
 
                     case 2: {
-                        // Tri par deadline - ordre croissaant (tri à bulles)
+                        // Tri par deadline - ordre croissant (tri à bulles)
                         for(int i=0; i<count-1; i++) {
                             for(int j=0; j<count-i-1; j++) {
                                 // on compare les deadlines, 1èrement par l'annéee, puis le mois, puis le jour
-                                if((taches[j].deadline.YYYY > taches[j+1].deadline.YYYY) || (taches[j].deadline.YYYY == taches[j+1].deadline.YYYY && taches[j].deadline.MM > taches[j+1].deadline.MM) || (taches[j].deadline.YYYY == taches[j+1].deadline.YYYY && taches[j].deadline.MM == taches[j+1].deadline.MM && taches[j].deadline.DD > taches[j+1].deadline.DD)) {
-                                    Tache temp = taches[j];
-                                    taches[j] = taches[j+1];
-                                    taches[j+1] = temp;
+                                if((tachesCopy[j].deadline.YYYY > tachesCopy[j+1].deadline.YYYY) || (tachesCopy[j].deadline.YYYY == tachesCopy[j+1].deadline.YYYY && tachesCopy[j].deadline.MM > tachesCopy[j+1].deadline.MM) || (tachesCopy[j].deadline.YYYY == tachesCopy[j+1].deadline.YYYY && tachesCopy[j].deadline.MM == tachesCopy[j+1].deadline.MM && tachesCopy[j].deadline.DD > tachesCopy[j+1].deadline.DD)) {
+                                    Tache temp = tachesCopy[j];
+                                    tachesCopy[j] = tachesCopy[j+1];
+                                    tachesCopy[j+1] = temp;
                                 }
                             }
                         }
                         printf("ID | Titre | Description | Deadline | Statut\n");
-                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
+                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", tachesCopy[i].id, tachesCopy[i].titre, tachesCopy[i].description, tachesCopy[i].deadline.DD, tachesCopy[i].deadline.MM, tachesCopy[i].deadline.YYYY, tachesCopy[i].statut);
                     }; break;
+
+                    case 3: {
+                        // Application du tri à bulles sur le tableau des tâches par titre (ordre alphabétique décroissant)
+                        for(int i=0; i<count-1; i++) {
+                            for(int j=0; j<count-i-1; j++) {
+                                if(strcmp(tachesCopy[j].titre, tachesCopy[j + 1].titre) < 0) {
+                                    Tache temp = tachesCopy[j];
+                                    tachesCopy[j] = tachesCopy[j+1];
+                                    tachesCopy[j+1] = temp;
+                                }
+                            }
+                        }
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", tachesCopy[i].id, tachesCopy[i].titre, tachesCopy[i].description, tachesCopy[i].deadline.DD, tachesCopy[i].deadline.MM, tachesCopy[i].deadline.YYYY, tachesCopy[i].statut);
+                    }; break;
+
+                    case 4: {
+                        // Tri par deadline - ordre décroissant (tri à bulles)
+                        for(int i=0; i<count-1; i++) {
+                            for(int j=0; j<count-i-1; j++) {
+                                // on compare les deadlines, 1èrement par l'annéee, puis le mois, puis le jour
+                                if((tachesCopy[j].deadline.YYYY < tachesCopy[j+1].deadline.YYYY) || (tachesCopy[j].deadline.YYYY == tachesCopy[j+1].deadline.YYYY && tachesCopy[j].deadline.MM < tachesCopy[j+1].deadline.MM) || (tachesCopy[j].deadline.YYYY == tachesCopy[j+1].deadline.YYYY && tachesCopy[j].deadline.MM == tachesCopy[j+1].deadline.MM && tachesCopy[j].deadline.DD < tachesCopy[j+1].deadline.DD)) {
+                                    Tache temp = tachesCopy[j];
+                                    tachesCopy[j] = tachesCopy[j+1];
+                                    tachesCopy[j+1] = temp;
+                                }
+                            }
+                        }
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        for(int i=0; i<count; i++) printf("%d | %s | %s | %d-%d-%d | %s\n", tachesCopy[i].id, tachesCopy[i].titre, tachesCopy[i].description, tachesCopy[i].deadline.DD, tachesCopy[i].deadline.MM, tachesCopy[i].deadline.YYYY, tachesCopy[i].statut);
+                    }; break;
+
+                    
+                    case 5: {
+                        // Affichage simple
+                        printf("ID | Titre | Description | Deadline | Statut\n");
+                        for(int i=0; i<count; i++) {
+                            printf("%d | %s | %s | %d-%d-%d | %s\n", taches[i].id, taches[i].titre, taches[i].description, taches[i].deadline.DD, taches[i].deadline.MM, taches[i].deadline.YYYY, taches[i].statut);
+                        }
+                    }; break;
+                    
 
                     default: {
                         // coming soon...
